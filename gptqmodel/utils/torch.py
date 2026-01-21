@@ -386,6 +386,12 @@ def torch_devices() -> List[torch.device]:
 
 ALL_DEVICES = torch_devices()
 
+log.warn(f"HAS_CUDA = {HAS_CUDA}")
+log.warn(f"HAS_XPU = {HAS_XPU}")
+log.warn(f"HAS_MPS = {HAS_MPS}")
+log.warn(f"HAS_MLX = {HAS_MLX}")
+log.warn(f"HAS_NPU = {HAS_NPU}")
+
 if HAS_CUDA:
     ALL_STREAMS = [torch.cuda.Stream(device=device) for device in ALL_DEVICES]
 elif HAS_XPU:
@@ -397,7 +403,7 @@ DEVICE_0 = auto_select_torch_device(index=0)
 # device_1 may be same as device_0 if there is only 1 visible/active device
 DEVICE_1 = auto_select_torch_device(index=1)
 
-DEVICE_0_STREAM = ALL_STREAMS[0]
+DEVICE_0_STREAM = ALL_STREAMS[0] if len(ALL_STREAMS) > 0 else contextlib.nullcontext()
 
 NEXT_DEVICE_INDEX = 0
 
