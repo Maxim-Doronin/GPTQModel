@@ -80,6 +80,7 @@ if hasattr(torch, "mps") and hasattr(torch.mps, "is_available") and torch.mps.is
 if hasattr(torch, "npu") and hasattr(torch.npu, "is_available") and torch.npu.is_available():
     HAS_NPU = True
 
+HAS_CUDA=False
 
 # mlx check
 try:
@@ -403,7 +404,7 @@ DEVICE_0 = auto_select_torch_device(index=0)
 # device_1 may be same as device_0 if there is only 1 visible/active device
 DEVICE_1 = auto_select_torch_device(index=1)
 
-DEVICE_0_STREAM = ALL_STREAMS[0] if len(ALL_STREAMS) > 0 else contextlib.nullcontext()
+DEVICE_0_STREAM = ALL_STREAMS[0]
 
 NEXT_DEVICE_INDEX = 0
 
